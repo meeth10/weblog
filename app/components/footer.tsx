@@ -1,5 +1,3 @@
-Footer · TSX
-Copy
 
 import Link from "next/link";
 
