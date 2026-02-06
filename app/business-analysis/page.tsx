@@ -15,7 +15,7 @@ export default function BusinessAnalysis() {
     {
       date: "September 22, 2025",
       title: "Amazon Supply: The Next Cash Cow a segment",
-      slug: "amazon-supply-analysis",
+      slug: "amazon-supply",
     },
     {
       date: "September 19, 2025",
@@ -35,14 +35,14 @@ export default function BusinessAnalysis() {
         {analyses.map((analysis) => (
           <Link
             key={analysis.slug}
-            href={`/blog`}
+            href={`/blog/${analysis.slug}`}
             className="block group"
           >
             <div className="flex justify-between items-baseline mb-1">
               <h2 className="text-lg text-white group-hover:text-blue-400 transition-colors">
                 {analysis.title}
               </h2>
-              <span className="text-sm text-gray-500 ml-4">{analysis.date}</span>
+              <span className="text-sm text-gray-500 ml-4 whitespace-nowrap">{analysis.date}</span>
             </div>
           </Link>
         ))}

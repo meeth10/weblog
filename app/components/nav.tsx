@@ -17,12 +17,12 @@ export default function Nav() {
 
   return (
     <nav className="mb-20">
-      <div className="flex gap-8 items-center text-sm">
+      <div className="flex flex-wrap gap-6 items-center text-sm">
         {links.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className={`transition-colors hover:text-white ${
+            className={`transition-colors hover:text-white whitespace-nowrap ${
               pathname === link.href ? "text-white" : "text-gray-400"
             }`}
           >
