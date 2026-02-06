@@ -17,7 +17,7 @@ export default function Nav() {
 
   return (
     <nav className="mb-20">
-      <ul className="flex flex-wrap gap-6 list-none">
+      <ul className="flex flex-wrap items-center list-none" style={{ gap: '1.5rem' }}>
         {links.map((link) => (
           <li key={link.href}>
             <Link
