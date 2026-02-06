@@ -16,8 +16,8 @@ export default function Nav() {
   ];
 
   return (
-    <nav className="mb-16">
-      <div className="flex flex-wrap gap-6 items-center">
+    <nav className="mb-20">
+      <div className="flex gap-8 items-center text-sm">
         {links.map((link) => (
           <Link
             key={link.href}
