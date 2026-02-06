@@ -1,37 +1,33 @@
-import Link from 'next/link'
+"use client";
 
-const navItems = {
-  '/': {
-    name: 'home',
-  },
-  '/blog': {
-    name: 'blog',
-  }
-}
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-export function Navbar() {
+export default function Nav() {
+  const pathname = usePathname();
+
+  const links = [
+    { href: "/", label: "home" },
+    { href: "/blog", label: "blog" },
+    { href: "/business-analysis", label: "business analysis" },
+    { href: "/content-here/tech-projects", label: "tech projects" },
+    { href: "/content-here/insights", label: "insights" },
+    { href: "/currently-brewing/now", label: "now" },
+  ];
+
   return (
-    <aside className="-ml-[8px] mb-16 tracking-tight">
-      <div className="lg:sticky lg:top-20">
-        <nav
-          className="flex flex-row items-start relative px-0 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
-          id="nav"
+    <nav className="mb-16 flex gap-8 items-center">
+      {links.map((link) => (
+        <Link
+          key={link.href}
+          href={link.href}
+          className={`transition-colors hover:text-white ${
+            pathname === link.href ? "text-white" : "text-gray-400"
+          }`}
         >
-          <div className="flex flex-row space-x-0 pr-10">
-            {Object.entries(navItems).map(([path, { name }]) => {
-              return (
-                <Link
-                  key={path}
-                  href={path}
-                  className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1"
-                >
-                  {name}
-                </Link>
-              )
-            })}
-          </div>
-        </nav>
-      </div>
-    </aside>
-  )
+          {link.label}
+        </Link>
+      ))}
+    </nav>
+  );
 }
