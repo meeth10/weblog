@@ -7,7 +7,7 @@ export default function Home() {
       "Breaking down the semiconductor value chain from design to fabrication. Analyzing competitive dynamics, capital intensity, and where value accrues in the stack.",
     date: "October 3, 2025",
     category: "Business Analysis",
-    link: "/business-analysis/semiconductor-case-study",
+    link: "/blog", // Change this to the actual link when you have the post
     tags: ["semiconductors", "industry-analysis", "value-chain"],
   };
 
@@ -16,19 +16,19 @@ export default function Home() {
       title: "Amazon Prime: Value Adder",
       category: "Business Analysis",
       date: "September 28, 2025",
-      link: "/business-analysis/amazon-prime-value",
+      link: "/blog", // Update these links to match your actual blog posts
     },
     {
       title: "How Network Effects Work",
       category: "Blog",
       date: "September 8, 2025",
-      link: "/blog/network-effects",
+      link: "/blog",
     },
     {
       title: "TAM/SAM/SOM Framework",
       category: "Tech Projects",
       date: "August 15, 2025",
-      link: "/tech-projects/tam-sam-som-framework",
+      link: "/content-here/tech-projects",
     },
   ];
 
@@ -56,7 +56,7 @@ export default function Home() {
           Featured Work
         </h2>
         <article className="border border-gray-800 rounded-lg p-8 hover:border-gray-700 transition-colors">
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex flex-wrap items-center gap-3 mb-4">
             <span className="text-xs px-3 py-1 bg-blue-900/30 rounded text-blue-400">
               {featuredWork.category}
             </span>
@@ -70,7 +70,7 @@ export default function Home() {
           <p className="text-gray-400 mb-6 leading-relaxed">
             {featuredWork.description}
           </p>
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex flex-wrap gap-2">
             {featuredWork.tags.map((tag) => (
               <span
                 key={tag}
@@ -94,20 +94,20 @@ export default function Home() {
           </Link>
         </div>
         <div className="space-y-4">
-          {recentWork.map((work) => (
+          {recentWork.map((work, index) => (
             <Link
-              key={work.link}
+              key={index}
               href={work.link}
               className="block border-b border-gray-800 pb-4 hover:border-gray-700 transition-colors group"
             >
-              <div className="flex items-start justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                 <div className="flex-1">
                   <h3 className="text-lg text-white group-hover:text-blue-400 transition-colors mb-1">
                     {work.title}
                   </h3>
                   <p className="text-sm text-gray-500">{work.category}</p>
                 </div>
-                <time className="text-sm text-gray-500 ml-4">{work.date}</time>
+                <time className="text-sm text-gray-500">{work.date}</time>
               </div>
             </Link>
           ))}
@@ -125,7 +125,7 @@ export default function Home() {
             effects differ across B2B and consumer platforms.
           </p>
           <Link
-            href="/now"
+            href="/currently-brewing/now"
             className="text-blue-400 hover:text-blue-300 transition-colors text-sm"
           >
             See what I'm learning and building →
