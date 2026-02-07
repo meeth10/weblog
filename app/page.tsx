@@ -1,6 +1,6 @@
 // app/page.tsx
 import Link from "next/link"
-import { projects } from "./data/projects"
+import { projects } from "./app/data/projects"
 
 export default function Home() {
   const pinned = projects.filter((p) => p.category === "pinned")
