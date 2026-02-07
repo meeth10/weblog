@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="mt-32 pt-8 border-t border-gray-800">
       <ul className="flex items-center list-none mb-4" style={{ gap: '1.5rem' }}>
         <li>
-          <Link href="mailto:your@email.com" className="text-sm text-gray-400 hover:text-white transition-colors">
+          <Link href="mailto:shouryast.1004@gmail.com" className="text-sm text-gray-400 hover:text-white transition-colors">
             gmail
           </Link>
         </li>
