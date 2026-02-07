@@ -1,26 +1,14 @@
-import Link from "next/link";
-
 export default function Footer() {
   return (
-    <footer className="mt-32 pt-8 border-t border-gray-800">
-      <ul className="flex items-center list-none mb-4" style={{ gap: '1.5rem' }}>
-        <li>
-          <Link href="mailto:shouryast.1004@gmail.com" className="text-sm text-gray-400 hover:text-white transition-colors">
-            gmail
-          </Link>
-        </li>
-        <li>
-          <Link href="https://github.com/yourusername" target="_blank" className="text-sm text-gray-400 hover:text-white transition-colors">
-            github
-          </Link>
-        </li>
-        <li>
-          <Link href="https://linkedin.com/in/yourusername" target="_blank" className="text-sm text-gray-400 hover:text-white transition-colors">
-            linkedin
-          </Link>
-        </li>
-      </ul>
-      <p className="text-gray-500 text-xs">© 2026 MIT Licensed</p>
+    <footer className="border-t border-gray-800 mt-20">
+      <div className="max-w-5xl mx-auto py-8 text-sm text-gray-400 flex justify-between">
+        <div>© 2026 — Shourya Singh</div>
+        <div className="flex gap-4">
+          <a href="mailto:your@email.com">Email</a>
+          <a href="https://github.com/yourhandle">GitHub</a>
+          <a href="https://linkedin.com/in/yourhandle">LinkedIn</a>
+        </div>
+      </div>
     </footer>
-  );
+  )
 }

@@ -1,39 +1,29 @@
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import { getBlogPosts } from "../utils";
-import { MDXRemote } from "next-mdx-remote/rsc";
+import { notFound } from "next/navigation"
+import { posts } from "../../data/posts"
 
-export async function generateStaticParams() {
-  let posts = getBlogPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
+export default function BlogPost({
+  params,
+}: {
+  params: { slug: string }
+}) {
+  const post = posts.find((p) => p.slug === params.slug)
 
-export default function Blog({ params }: { params: { slug: string } }) {
-  let post = getBlogPosts().find((post) => post.slug === params.slug);
-
-  if (!post) {
-    notFound();
-  }
+  if (!post) return notFound()
 
   return (
-    <article className="max-w-2xl">
-      <Link
-        href="/blog"
-        className="text-sm text-gray-400 hover:text-white transition-colors mb-8 inline-block"
-      >
-        ← Back
-      </Link>
-
-      <header className="mb-12">
-        <h1 className="text-3xl font-bold mb-2">{post.metadata.title}</h1>
-        <time className="text-sm text-gray-500">{post.metadata.publishedAt}</time>
+    <article className="max-w-3xl mx-auto py-16 space-y-6">
+      <header className="space-y-2">
+        <h1 className="text-4xl font-bold">{post.title}</h1>
+        <time className="text-sm text-gray-400">
+          {post.publishedAt}
+        </time>
       </header>
 
       <div className="prose prose-invert max-w-none">
-        <MDXRemote source={post.content} />
+        {post.content.split("\n").map((line, i) => (
+          <p key={i}>{line}</p>
+        ))}
       </div>
     </article>
-  );
+  )
 }
