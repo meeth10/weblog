@@ -1,51 +1,26 @@
-import Link from "next/link";
+// app/insights/page.tsx
+import { insights } from "../app/data/insights"
 
-export default function Insights() {
-  const insights = [
-    {
-      date: "January 15, 2026",
-      title: "Ben Thompson on AI Distribution",
-      source: "Stratechery Podcast",
-      slug: "ben-thompson-ai-distribution",
-    },
-    {
-      date: "January 8, 2026",
-      title: "The Innovator's Dilemma",
-      source: "Clayton Christensen",
-      slug: "innovators-dilemma",
-    },
-    {
-      date: "December 20, 2025",
-      title: "Jensen Huang on AI Infrastructure",
-      source: "NVIDIA GTC Keynote",
-      slug: "jensen-huang-ai-infrastructure",
-    },
-    {
-      date: "December 10, 2025",
-      title: "How to Read a 10-K",
-      source: "Invest Like the Best",
-      slug: "reading-10k",
-    },
-  ];
-
+export default function InsightsPage() {
   return (
-    <div className="max-w-2xl">
-      <h1 className="text-3xl font-bold mb-4">Insights</h1>
-      <p className="text-gray-400 mb-16 leading-relaxed">
-        Notes from talks, books, and podcasts.
+    <main className="max-w-4xl mx-auto py-16 px-6">
+      <h1 className="text-4xl font-bold mb-6">Insights</h1>
+      <p className="text-gray-300 mb-10">
+        Short-form notes on strategy, investing, technology, and systems thinking.
       </p>
 
-      <div className="space-y-8">
+      <ul className="space-y-6">
         {insights.map((insight) => (
-          <div key={insight.slug}>
-            <div className="flex justify-between items-baseline mb-1">
-              <h2 className="text-lg text-white">{insight.title}</h2>
-              <span className="text-sm text-gray-500 ml-4">{insight.date}</span>
-            </div>
-            <p className="text-sm text-gray-500">{insight.source}</p>
-          </div>
+          <li
+            key={insight.id}
+            className="border-b border-gray-800 pb-4"
+          >
+            <h2 className="text-2xl font-semibold">{insight.title}</h2>
+            <p className="text-sm text-gray-400">{insight.date}</p>
+            <p className="text-gray-300 mt-2">{insight.summary}</p>
+          </li>
         ))}
-      </div>
-    </div>
-  );
+      </ul>
+    </main>
+  )
 }

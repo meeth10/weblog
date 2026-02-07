@@ -1,50 +1,23 @@
-import Link from "next/link";
+// app/tech-projects/page.tsx
+import Link from "next/link"
+import { projects } from "../app/data/projects"
 
 export default function TechProjects() {
-  const projects = [
-    {
-      title: "TAM/SAM/SOM Framework",
-      description:
-        "Market sizing methodology for emerging tech sectors. Top-down and bottom-up validation.",
-      slug: "tam-sam-som-framework",
-    },
-    {
-      title: "DCF Valuation Model",
-      description:
-        "Multi-scenario discounted cash flow model for high-growth tech companies.",
-      slug: "dcf-model",
-    },
-    {
-      title: "System Design: Cloud Infrastructure",
-      description:
-        "Scalable cloud architecture for B2B SaaS. Cost optimization and performance trade-offs.",
-      slug: "cloud-infrastructure",
-    },
-    {
-      title: "Competitive Analysis Dashboard",
-      description:
-        "Framework for tracking competitor moves across product, pricing, and positioning.",
-      slug: "competitive-dashboard",
-    },
-  ];
-
+  const list = projects.filter((p) => p.category === "tech-project")
   return (
-    <div className="max-w-2xl">
-      <h1 className="text-3xl font-bold mb-4">Tech Projects</h1>
-      <p className="text-gray-400 mb-16 leading-relaxed">
-        Frameworks, models, and systems blending engineering with strategy.
-      </p>
-
-      <div className="space-y-8">
-        {projects.map((project) => (
-          <div key={project.slug}>
-            <h2 className="text-lg text-white mb-2">{project.title}</h2>
-            <p className="text-gray-400 leading-relaxed">
-              {project.description}
-            </p>
-          </div>
+    <main className="max-w-4xl mx-auto py-16 px-6">
+      <h1 className="text-4xl font-bold mb-6">Tech Projects</h1>
+      <ul className="space-y-6">
+        {list.map((p) => (
+          <li key={p.id}>
+            <Link href={p.href ?? "#"} className="text-2xl font-semibold hover:underline">
+              {p.title}
+            </Link>
+            <p className="text-sm text-gray-400">{p.date}</p>
+            <p className="text-gray-300">{p.short}</p>
+          </li>
         ))}
-      </div>
-    </div>
-  );
+      </ul>
+    </main>
+  )
 }
