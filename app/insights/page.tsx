@@ -1,4 +1,4 @@
-import { insights } from "@/data/insights"
+import { insights } from "../app/data/insights"
 
 export default function InsightsPage() {
   return (

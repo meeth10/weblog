@@ -1,6 +1,6 @@
 import "./global.css"
-import Nav from "@/components/nav"
-import Footer from "@/components/footer"
+import Nav from "../app/components/nav"
+import Footer from "../app/components/footer"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

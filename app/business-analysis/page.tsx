@@ -1,4 +1,4 @@
-import { projects } from "@/data/projects"
+import { projects } from "../app/data/projects"
 
 export default function BusinessAnalysis() {
   const list = projects.filter(p => p.category === "analysis")
