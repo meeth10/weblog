@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getBlogPosts } from "@/app/blog/utils";
+import { getBlogPosts } from "../blog/utils";
 
 export default function Posts() {
   const posts = getBlogPosts();
