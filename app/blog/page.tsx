@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { posts } from "../data/posts"
+import { posts } from "../app/data/post"
 
 export default function BlogPage() {
   return (
