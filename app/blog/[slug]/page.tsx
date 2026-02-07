@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
-import { posts } from "../app/data/posts"
+import { posts } from "../../data/posts"
 
-export default function blogPost({
+export default function BlogPost({
   params,
 }: {
   params: { slug: string }
