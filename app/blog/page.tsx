@@ -3,26 +3,21 @@ import { posts } from "../data/posts"
 
 export default function BlogPage() {
   return (
-    <section className="max-w-3xl mx-auto py-16 space-y-10">
-      <h1 className="text-4xl font-bold">Writing</h1>
+    <main className="max-w-3xl mx-auto py-16 space-y-10">
+      <h1 className="text-4xl font-bold">My Blog</h1>
 
-      <div className="space-y-8">
+      <ul className="space-y-6">
         {posts.map((post) => (
-          <Link
-            key={post.slug}
-            href={`/blog/${post.slug}`}
-            className="block group"
-          >
-            <div className="space-y-1">
-              <h2 className="text-2xl font-semibold group-hover:underline">
+          <li key={post.slug}>
+            <Link href={`/blog/${post.slug}`}>
+              <h2 className="text-2xl font-semibold hover:underline">
                 {post.title}
               </h2>
-              <p className="text-sm text-gray-400">{post.publishedAt}</p>
-              <p className="text-gray-300">{post.description}</p>
-            </div>
-          </Link>
+            </Link>
+            <p className="text-sm text-gray-400">{post.publishedAt}</p>
+          </li>
         ))}
-      </div>
-    </section>
+      </ul>
+    </main>
   )
 }
