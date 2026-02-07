@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation"
-import { posts } from "../app/data/posts.ts"
+import { posts } from "../../data/posts"
 
 export default function BlogPost({
   params,
