@@ -1,5 +1,5 @@
-import { notFound } from "next/navigation"
-import { posts } from "./app/data/posts"
+import { notFound } from "next"
+import { posts } from "../app/data/posts"
 
 export default function BlogPost({ params }: { params: { slug: string } }) {
   const post = posts.find(p => p.slug === params.slug)
