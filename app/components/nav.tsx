@@ -17,20 +17,19 @@ export default function Nav() {
 
   return (
     <nav className="mb-20">
-      <ul className="flex flex-wrap items-center list-none" style={{ gap: '1.5rem' }}>
+      <div className="flex gap-8 items-center text-sm">
         {links.map((link) => (
-          <li key={link.href}>
-            <Link
-              href={link.href}
-              className={`text-sm transition-colors hover:text-white ${
-                pathname === link.href ? "text-white" : "text-gray-400"
-              }`}
-            >
-              {link.label}
-            </Link>
-          </li>
+          <Link
+            key={link.href}
+            href={link.href}
+            className={`transition-colors hover:text-white ${
+              pathname === link.href ? "text-white" : "text-gray-400"
+            }`}
+          >
+            {link.label}
+          </Link>
         ))}
-      </ul>
+      </div>
     </nav>
   );
 }
