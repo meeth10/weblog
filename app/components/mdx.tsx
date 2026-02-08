@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { getBlogPosts } from "../blog/utils";
+import { getAllPosts } from "../blog/utils";
 
 export default function Posts() {
-  const posts = getBlogPosts();
+  const posts = getAllPosts();
 
   return (
     <div className="space-y-6">
