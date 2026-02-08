@@ -12,13 +12,10 @@ export default function Posts() {
           href={`/blog/${post.slug}`}
           className="block group"
         >
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 sm:gap-4">
-            <h2 className="text-lg text-white group-hover:text-blue-400 transition-colors">
-              {post.metadata.title}
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-medium text-gray-900 group-hover:text-accent transition-colors">
+              {post.title}
             </h2>
-            <time className="text-sm text-gray-500 whitespace-nowrap">
-              {post.metadata.publishedAt}
-            </time>
           </div>
         </Link>
       ))}
