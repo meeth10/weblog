@@ -1,25 +1,37 @@
 import Link from "next/link"
-import { posts } from "../data/posts"
 
-export default function BlogPage() {
+export default function Home() {
   return (
-    <main className="max-w-4xl mx-auto py-16">
-      <h1 className="text-4xl font-bold mb-8">My Blog</h1>
+    <section className="space-y-12">
+      <header className="space-y-4">
+        <h1>Portfolio</h1>
+        <p className="max-w-xl">
+          I apply engineering rigor to finance, strategy, and technology.
+        </p>
+      </header>
 
-      <ul className="space-y-6">
-        {posts.map((p) => (
-          <li key={p.slug}>
-            <Link
-              href={`/blog/${p.slug}`}
-              className="text-2xl font-semibold hover:underline"
-            >
-              {p.title}
-            </Link>
-            <p className="text-sm text-gray-400">{p.publishedAt}</p>
-            <p className="text-gray-300">{p.description}</p>
-          </li>
-        ))}
+      <ul className="space-y-4">
+        <li>
+          <Link href="/business-analysis/semiconductors" className="link">
+            Industry X-Ray: Semiconductors
+          </Link>
+        </li>
+        <li>
+          <Link href="/tech-projects/lbo-engine" className="link">
+            LBO Stress Testing Engine
+          </Link>
+        </li>
+        <li>
+          <Link href="/business-analysis/comps" className="link">
+            Comparable Company Analysis
+          </Link>
+        </li>
+        <li>
+          <Link href="/business-analysis/india-ev-battery" className="link">
+            India EV Battery Strategy
+          </Link>
+        </li>
       </ul>
-    </main>
+    </section>
   )
 }

@@ -1,66 +1,59 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
+  --orange: #f97316;
+  --beige: #faf7f2;
+  --sand: #f1ede7;
+  --grey-900: #111827;
+  --grey-600: #4b5563;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  background-color: var(--background);
-  color: var(--foreground);
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.6;
-  padding: 3rem 1.5rem;
-}
-
-@media (min-width: 768px) {
+@layer base {
   body {
-    padding: 4rem 2rem;
+    background-color: var(--beige);
+    color: var(--grey-900);
+  }
+
+  p {
+    color: var(--grey-600);
+  }
+
+  h1 {
+    @apply text-5xl font-bold tracking-tight;
+  }
+
+  h2 {
+    @apply text-3xl font-semibold tracking-tight;
+  }
+
+  h3 {
+    @apply text-xl font-semibold;
+  }
+
+  p {
+    @apply text-gray-600 leading-relaxed;
+  }
+
+  a {
+    @apply transition-colors;
   }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+@layer components {
+  .bg-sand {
+    background-color: var(--sand);
+  }
 
-/* Minimal scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
+  .text-accent {
+    color: var(--orange);
+  }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+  .link {
+    @apply underline underline-offset-4 decoration-transparent transition;
+  }
 
-::-webkit-scrollbar-thumb {
-  background: #3f3f46;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #52525b;
-}
-
-/* Selection */
-::selection {
-  background-color: #1e3a8a;
-  color: #60a5fa;
+  .link:hover {
+    text-decoration-color: var(--orange);
+  }
 }
