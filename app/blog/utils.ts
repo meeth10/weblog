@@ -1,54 +1,37 @@
-import fs from "fs";
-import path from "path";
+import fs from "fs"
+import path from "path"
+import matter from "gray-matter"
+import { compileMDX } from "next-mdx-remote/rsc"
 
-type Metadata = {
-  title: string;
-  publishedAt: string;
-  summary: string;
-  category?: string;
-};
+const POSTS_PATH = path.join(process.cwd(), "app/blog/posts")
 
-function parseFrontmatter(fileContent: string) {
-  let frontmatterRegex = /---\s*([\s\S]*?)\s*---/;
-  let match = frontmatterRegex.exec(fileContent);
-  let frontMatterBlock = match![1];
-  let content = fileContent.replace(frontmatterRegex, "").trim();
-  let frontMatterLines = frontMatterBlock.trim().split("\n");
-  let metadata: Partial<Metadata> = {};
-
-  frontMatterLines.forEach((line) => {
-    let [key, ...valueArr] = line.split(": ");
-    let value = valueArr.join(": ").trim();
-    value = value.replace(/^['"](.*)['"]$/, "$1"); // Remove quotes
-    metadata[key.trim() as keyof Metadata] = value;
-  });
-
-  return { metadata: metadata as Metadata, content };
-}
-
-function getMDXFiles(dir: string) {
-  return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
-}
-
-function readMDXFile(filePath: string) {
-  let rawContent = fs.readFileSync(filePath, "utf-8");
-  return parseFrontmatter(rawContent);
-}
-
-function getMDXData(dir: string) {
-  let mdxFiles = getMDXFiles(dir);
-  return mdxFiles.map((file) => {
-    let { metadata, content } = readMDXFile(path.join(dir, file));
-    let slug = path.basename(file, path.extname(file));
+export function getAllPosts() {
+  return fs.readdirSync(POSTS_PATH).map((file) => {
+    const slug = file.replace(/\.mdx$/, "")
+    const source = fs.readFileSync(path.join(POSTS_PATH, file), "utf8")
+    const { data } = matter(source)
 
     return {
-      metadata,
       slug,
-      content,
-    };
-  });
+      title: data.title ?? slug.replace(/_/g, " "),
+      description: data.description ?? "",
+    }
+  })
 }
 
-export function getBlogPosts() {
-  return getMDXData(path.join(process.cwd(), "app", "blog", "posts"));
+export async function getPostBySlug(slug: string) {
+  const fullPath = path.join(POSTS_PATH, `${slug}.mdx`)
+  if (!fs.existsSync(fullPath)) return null
+
+  const source = fs.readFileSync(fullPath, "utf8")
+  const { content, data } = matter(source)
+
+  const compiled = await compileMDX({
+    source: content,
+  })
+
+  return {
+    title: data.title ?? slug.replace(/_/g, " "),
+    content: compiled.content,
+  }
 }

@@ -1,22 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* --------------------
+   COLOR TOKENS
+-------------------- */
 :root {
   --orange: #f97316;
+  --orange-soft: #fde7d7;
   --beige: #faf7f2;
   --sand: #f1ede7;
-  --grey-900: #111827;
-  --grey-600: #4b5563;
+  --grey-900: #0f172a;
+  --grey-600: #475569;
 }
 
+/* --------------------
+   BASE STYLES
+-------------------- */
 @layer base {
   body {
-    background-color: var(--beige);
+    background: linear-gradient(
+      180deg,
+      #ffffff 0%,
+      var(--beige) 100%
+    );
     color: var(--grey-900);
-  }
-
-  p {
-    color: var(--grey-600);
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
+    line-height: 1.6;
   }
 
   h1 {
@@ -32,7 +42,8 @@
   }
 
   p {
-    @apply text-gray-600 leading-relaxed;
+    color: var(--grey-600);
+    @apply leading-relaxed;
   }
 
   a {
@@ -40,6 +51,9 @@
   }
 }
 
+/* --------------------
+   COMPONENTS
+-------------------- */
 @layer components {
   .bg-sand {
     background-color: var(--sand);
@@ -49,11 +63,33 @@
     color: var(--orange);
   }
 
-  .link {
-    @apply underline underline-offset-4 decoration-transparent transition;
+  .btn {
+    @apply inline-flex items-center rounded-md px-4 py-2 text-sm font-medium border transition;
   }
 
-  .link:hover {
-    text-decoration-color: var(--orange);
+  .btn-primary {
+    @apply bg-gray-900 text-white border-gray-900 hover:bg-gray-800;
+  }
+
+  .btn-secondary {
+    @apply border-gray-300 text-gray-700 hover:bg-gray-100;
+  }
+
+  .card {
+    @apply rounded-xl border border-gray-200 p-6 bg-white;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .card h3 {
+    @apply transition-colors;
+  }
+
+  .card:hover h3 {
+    color: var(--orange);
   }
 }
