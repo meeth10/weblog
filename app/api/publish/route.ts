@@ -4,17 +4,29 @@ import { Buffer } from "buffer"
 export async function POST(req: Request) {
   const { title, tags, content } = await req.json()
 
+  if (!title || !content) {
+    return new NextResponse("Missing title or content", { status: 400 })
+  }
+
   const slug = title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "")
 
+  // Convert plain text → markdown-safe body
+  const body = content
+    .split("\n\n")
+    .map((p: string) => p.trim())
+    .filter(Boolean)
+    .join("\n\n")
+
+  // Generate MDX with controlled frontmatter
   const mdx = `---
-title: ${title}
-tags: ${JSON.stringify(tags)}
+title: "${title.replace(/"/g, '\\"')}"
+tags: ${JSON.stringify(tags ?? [])}
 ---
 
-${content}
+${body}
 `
 
   const path = `app/blog/posts/${slug}.mdx`

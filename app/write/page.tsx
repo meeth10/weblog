@@ -6,28 +6,36 @@ export default function WritePage() {
   const [title, setTitle] = useState("")
   const [tags, setTags] = useState("")
   const [content, setContent] = useState("")
-  const [status, setStatus] = useState("")
+  const [status, setStatus] = useState<string | null>(null)
 
   async function publish() {
     setStatus("Publishing...")
 
-    const res = await fetch("/api/publish", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        title,
-        tags: tags.split(",").map(t => t.trim()),
-        content,
-      }),
-    })
+    try {
+      const res = await fetch("/api/publish", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title,
+          tags: tags
+            .split(",")
+            .map((t) => t.trim())
+            .filter(Boolean),
+          content,
+        }),
+      })
 
-    if (res.ok) {
-      setStatus("Published ✅ (redeploying…)")  
-      setTitle("")
-      setTags("")
-      setContent("")
-    } else {
-      setStatus("Error ❌")
+      if (res.ok) {
+        setStatus("Published ✅ (redeploying…)")
+        setTitle("")
+        setTags("")
+        setContent("")
+      } else {
+        const text = await res.text()
+        setStatus(`Error ❌ ${text}`)
+      }
+    } catch (err) {
+      setStatus("Error ❌ Network or server issue")
     }
   }
 
@@ -50,7 +58,7 @@ export default function WritePage() {
       />
 
       <textarea
-        placeholder="Write MDX here…"
+        placeholder="Write freely here. No markdown or frontmatter needed."
         className="w-full border p-3 rounded min-h-[300px]"
         value={content}
         onChange={(e) => setContent(e.target.value)}
@@ -59,11 +67,16 @@ export default function WritePage() {
       <button
         onClick={publish}
         className="btn btn-primary"
+        disabled={!title || !content}
       >
         Publish
       </button>
 
-      {status && <p className="text-sm text-gray-500">{status}</p>}
+      {status && (
+        <p className="text-sm text-gray-500 whitespace-pre-wrap">
+          {status}
+        </p>
+      )}
     </div>
   )
 }
