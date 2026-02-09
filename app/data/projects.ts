@@ -1,10 +1,22 @@
+export type ProjectStatus = "active" | "paused" | "done"
+
 export type Project = {
   id: string
   title: string
   category: "pinned" | "tech" | "analysis" | "brewing"
-  date: string
+
   summary: string
-  href: string
+
+  // navigation
+  href?: string
+
+  // timeline
+  startedAt?: string
+  deadline?: string
+
+  // execution (used by Currently Brewing)
+  status?: ProjectStatus
+  subtasks?: string[]
 }
 
 export const projects: Project[] = [
@@ -12,32 +24,40 @@ export const projects: Project[] = [
     id: "semi",
     title: "Industry X-Ray: Semiconductors",
     category: "pinned",
-    date: "Oct 2025",
     summary: "Strategy teardown of the semiconductor ecosystem.",
-    href: "/blog/industry-x-ray-semiconductors"
+    href: "/blog/industry-x-ray-semiconductors",
   },
+
   {
     id: "lbo",
     title: "LBO Stress Testing Engine",
     category: "tech",
-    date: "Jul 2025",
     summary: "IRR, MOIC, and downside modeling in Python.",
-    href: "/tech-projects"
+    href: "/tech-projects/lbo-engine",
   },
+
   {
     id: "comps",
     title: "Comparable Company Analysis",
     category: "analysis",
-    date: "Sep 2025",
     summary: "Why comps lie unless normalized.",
-    href: "/business-analysis"
+    href: "/business-analysis/comps",
   },
+
   {
     id: "ev",
     title: "India EV Battery Strategy",
     category: "brewing",
-    date: "Aug 2025",
     summary: "Venture thesis on battery supply chains.",
-    href: "/currently-brewing"
-  }
+
+    status: "active",
+    startedAt: "Aug 2025",
+    deadline: "Mar 2026",
+
+    subtasks: [
+      "Map global battery value chain",
+      "China vs India cost comparison",
+      "Policy + incentives analysis",
+    ],
+  },
 ]

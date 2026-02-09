@@ -1,17 +1,21 @@
-import { projects } from "../data/projects"
+import { getAllPosts } from "../blog/utils"
+import WritingList from "../components/WritingList"
 
-export default function BusinessAnalysis() {
-  const list = projects.filter(p => p.category === "analysis")
+export default function BusinessAnalysisPage() {
+  const posts = getAllPosts().filter((p) =>
+    p.tags?.includes("analysis")
+  )
 
   return (
-    <main className="max-w-4xl mx-auto py-16">
-      <h1 className="text-4xl font-bold mb-8">Business Analysis</h1>
+    <section className="max-w-3xl mx-auto py-24 space-y-8">
+      <header>
+        <h1 className="text-4xl font-semibold">Business Analysis</h1>
+        <p className="text-gray-600 mt-2">
+          Deep dives, frameworks, and structured thinking.
+        </p>
+      </header>
 
-      <ul className="space-y-4">
-        {list.map(p => (
-          <li key={p.id}>{p.title}</li>
-        ))}
-      </ul>
-    </main>
+      <WritingList posts={posts} />
+    </section>
   )
 }
