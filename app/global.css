@@ -2,21 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-/* --------------------
+/* ====================
    COLOR TOKENS
--------------------- */
+==================== */
 :root {
   --orange: #f97316;
   --orange-soft: #fde7d7;
+
   --beige: #faf7f2;
   --sand: #f1ede7;
+
   --grey-900: #0f172a;
+  --grey-700: #334155;
   --grey-600: #475569;
+  --grey-400: #94a3b8;
 }
 
-/* --------------------
+/* ====================
    BASE STYLES
--------------------- */
+==================== */
 @layer base {
   body {
     background: linear-gradient(
@@ -26,7 +30,7 @@
     );
     color: var(--grey-900);
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
-    line-height: 1.6;
+    line-height: 1.65;
   }
 
   h1 {
@@ -51,18 +55,21 @@
   }
 }
 
-/* --------------------
+/* ====================
    COMPONENTS
--------------------- */
+==================== */
 @layer components {
+  /* Background helpers */
   .bg-sand {
     background-color: var(--sand);
   }
 
+  /* Accent helpers */
   .text-accent {
     color: var(--orange);
   }
 
+  /* Buttons */
   .btn {
     @apply inline-flex items-center rounded-md px-4 py-2 text-sm font-medium border transition;
   }
@@ -75,14 +82,19 @@
     @apply border-gray-300 text-gray-700 hover:bg-gray-100;
   }
 
+  /* Cards */
   .card {
     @apply rounded-xl border border-gray-200 p-6 bg-white;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      border-color 0.25s ease;
   }
 
   .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    border-color: var(--orange-soft);
   }
 
   .card h3 {
@@ -92,4 +104,39 @@
   .card:hover h3 {
     color: var(--orange);
   }
+}
+
+/* ====================
+   PROSE (BLOG POSTS)
+==================== */
+.prose {
+  max-width: 70ch;
+}
+
+.prose h1 {
+  @apply text-4xl font-bold mt-16 mb-6;
+}
+
+.prose h2 {
+  @apply text-2xl font-semibold mt-12 mb-4;
+}
+
+.prose h3 {
+  @apply text-xl font-semibold mt-8 mb-3;
+}
+
+.prose p {
+  @apply text-lg leading-relaxed text-gray-700 my-6;
+}
+
+.prose ul {
+  @apply list-disc pl-6 my-6 text-gray-700;
+}
+
+.prose li {
+  @apply my-2;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-orange-500 pl-4 italic text-gray-600 my-8;
 }

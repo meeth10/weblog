@@ -17,9 +17,14 @@ export default async function Page({
   if (!post) return notFound()
 
   return (
-    <article className="prose prose-neutral max-w-3xl">
-      <h1>{post.title}</h1>
-      {post.content}
-    </article>
+    <section className="max-w-3xl mx-auto px-6 py-24">
+      <article className="prose max-w-none">
+        {/* Title */}
+        <h1>{post.title}</h1>
+
+        {/* Content */}
+        {post.content}
+      </article>
+    </section>
   )
 }
