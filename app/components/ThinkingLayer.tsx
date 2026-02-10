@@ -14,8 +14,6 @@ export default function ThinkingLayer({ active }: { active: boolean }) {
 
   useEffect(() => {
     if (!active) return
-
-    // Respect reduced motion preferences
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
 
     const canvas = canvasRef.current
@@ -24,6 +22,9 @@ export default function ThinkingLayer({ active }: { active: boolean }) {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
+    // 🔒 Freeze non-null context for TS
+    const context = ctx
+
     const dpr = window.devicePixelRatio || 1
 
     const resize = () => {
@@ -31,7 +32,7 @@ export default function ThinkingLayer({ active }: { active: boolean }) {
       canvas.height = window.innerHeight * dpr
       canvas.style.width = "100%"
       canvas.style.height = "100%"
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      context.setTransform(dpr, 0, 0, dpr, 0, 0)
     }
 
     resize()
@@ -55,8 +56,8 @@ export default function ThinkingLayer({ active }: { active: boolean }) {
     let raf: number
 
     function animate() {
-      // Clear in CSS pixels (important with DPR scaling)
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+      // Clear in CSS pixels (DPR-safe)
+      context.clearRect(0, 0, window.innerWidth, window.innerHeight)
 
       for (let i = 0; i < nodes.length; i++) {
         const a = nodes[i]
@@ -67,7 +68,6 @@ export default function ThinkingLayer({ active }: { active: boolean }) {
         if (a.x < 0 || a.x > window.innerWidth) a.vx *= -1
         if (a.y < 0 || a.y > window.innerHeight) a.vy *= -1
 
-        // Mouse repulsion (guard against divide-by-zero)
         const dx = a.x - mouse.x
         const dy = a.y - mouse.y
         const dist = Math.sqrt(dx * dx + dy * dy)
@@ -77,17 +77,14 @@ export default function ThinkingLayer({ active }: { active: boolean }) {
           a.vy += (dy / dist) * 0.05
         }
 
-        // Soft velocity cap
         a.vx = Math.max(-1, Math.min(1, a.vx))
         a.vy = Math.max(-1, Math.min(1, a.vy))
 
-        // Node
-        ctx.beginPath()
-        ctx.arc(a.x, a.y, 2.5, 0, Math.PI * 2)
-        ctx.fillStyle = "rgba(249,115,22,0.9)"
-        ctx.fill()
+        context.beginPath()
+        context.arc(a.x, a.y, 2.5, 0, Math.PI * 2)
+        context.fillStyle = "rgba(249,115,22,0.9)"
+        context.fill()
 
-        // Connections
         for (let j = i + 1; j < nodes.length; j++) {
           const b = nodes[j]
           const dx2 = a.x - b.x
@@ -95,12 +92,12 @@ export default function ThinkingLayer({ active }: { active: boolean }) {
           const d = Math.sqrt(dx2 * dx2 + dy2 * dy2)
 
           if (d < 140) {
-            ctx.beginPath()
-            ctx.moveTo(a.x, a.y)
-            ctx.lineTo(b.x, b.y)
-            ctx.strokeStyle = `rgba(51,65,85,${1 - d / 140})`
-            ctx.lineWidth = 0.8
-            ctx.stroke()
+            context.beginPath()
+            context.moveTo(a.x, a.y)
+            context.lineTo(b.x, b.y)
+            context.strokeStyle = `rgba(51,65,85,${1 - d / 140})`
+            context.lineWidth = 0.8
+            context.stroke()
           }
         }
       }
