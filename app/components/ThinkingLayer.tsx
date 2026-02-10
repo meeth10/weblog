@@ -15,6 +15,9 @@ export default function ThinkingLayer({ active }: { active: boolean }) {
   useEffect(() => {
     if (!active) return
 
+    // Respect reduced motion preferences
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -52,7 +55,8 @@ export default function ThinkingLayer({ active }: { active: boolean }) {
     let raf: number
 
     function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      // Clear in CSS pixels (important with DPR scaling)
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
 
       for (let i = 0; i < nodes.length; i++) {
         const a = nodes[i]
@@ -63,14 +67,19 @@ export default function ThinkingLayer({ active }: { active: boolean }) {
         if (a.x < 0 || a.x > window.innerWidth) a.vx *= -1
         if (a.y < 0 || a.y > window.innerHeight) a.vy *= -1
 
-        // Mouse repulsion
+        // Mouse repulsion (guard against divide-by-zero)
         const dx = a.x - mouse.x
         const dy = a.y - mouse.y
         const dist = Math.sqrt(dx * dx + dy * dy)
-        if (dist < 140) {
+
+        if (dist > 0 && dist < 140) {
           a.vx += (dx / dist) * 0.05
           a.vy += (dy / dist) * 0.05
         }
+
+        // Soft velocity cap
+        a.vx = Math.max(-1, Math.min(1, a.vx))
+        a.vy = Math.max(-1, Math.min(1, a.vy))
 
         // Node
         ctx.beginPath()

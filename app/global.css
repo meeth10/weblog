@@ -3,110 +3,133 @@
 @tailwind utilities;
 
 /* ====================
-   BASE
+   DESIGN TOKENS
+   white  -> space
+   black  -> authority
+   beige  -> warmth
+   orange -> intent
 ==================== */
+
 @layer base {
+  :root {
+    --bg: #ffffff;
+    --ink: #0f172a;        /* near-black */
+    --steel: #475569;      /* muted text */
+    --steel-soft: #64748b;
+    --line: #e5e7eb;
+
+    --sand: #f6f1ea;       /* beige */
+    --sand-strong: #efe7dc;
+
+    --orange: #f97316;
+    --orange-soft: #fdba74;
+  }
+
+  /* ===== GLOBAL SCALE (1.4x) ===== */
   body {
+    background: var(--bg);
+    color: var(--ink);
     font-family: theme(fontFamily.body);
-    line-height: 1.65;
-    background-color: theme(colors.bg);
-    color: theme(colors.ink);
+
+    font-size: 25.2px;     /* 18px × 1.4 */
+    line-height: 1.9;
+
+    -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3 {
     font-family: theme(fontFamily.heading);
-    letter-spacing: -0.02em;
-    color: theme(colors.ink);
+    letter-spacing: -0.025em;
   }
 
   h1 {
-    @apply text-4xl font-semibold mb-6;
+    font-size: 3.85rem;    /* 2.75 × 1.4 */
+    line-height: 1.05;
+    font-weight: 600;
   }
 
   h2 {
-    @apply text-2xl font-medium mt-14 mb-4;
+    font-size: 2.25rem;    /* 1.6 × 1.4 */
+    margin-top: 5.6rem;
+    margin-bottom: 1.4rem;
   }
 
   h3 {
-    @apply text-lg font-medium mt-10 mb-2;
+    font-size: 1.4rem;     /* 1 × 1.4 */
+    font-weight: 500;
   }
 
   p {
-    font-size: 1rem;
-    line-height: 1.65;
-    color: theme(colors.steel);
-    margin: 1.25rem 0;
+    font-size: 1.05rem;
+    color: var(--steel);
+    margin: 1.5rem 0;
   }
 
   a {
-    transition: color 0.2s ease;
-    color: theme(colors.ink);
+    color: var(--ink);
+    transition: all 0.2s ease;
   }
 
   a:hover {
-    color: theme(colors.orange);
+    color: var(--orange);
   }
 }
 
 /* ====================
-   COMPONENTS
+   COMPONENT PRIMITIVES
 ==================== */
 @layer components {
-  .card {
-    background-color: theme(colors.sand);
-    border: 1px solid theme(colors.line);
-    border-radius: 0.75rem;
-    padding: 1.25rem;
+  .panel {
+    background: var(--sand);
+    border: 1px solid var(--line);
+    border-radius: 1.75rem; /* scaled */
   }
 
-  .card:hover {
-    border-color: theme(colors.orangeSoft);
-  }
-
-  .divider {
-    border-top: 1px solid theme(colors.line);
-    margin: 3rem 0;
-  }
-
-  .accent {
-    color: theme(colors.orange);
+  .panel-glass {
+    background: color-mix(in srgb, var(--sand) 85%, transparent);
+    backdrop-filter: blur(8px);
   }
 
   .paper {
-    background-color: color-mix(
-      in srgb,
-      theme(colors.sand) 80%,
-      transparent
-    );
-    backdrop-filter: blur(6px);
-    border: 1px solid theme(colors.line);
-    border-radius: 1rem;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 1.4rem; /* scaled */
+    padding: 1.75rem;      /* scaled */
+    transition: all 0.25s ease;
+  }
+
+  .paper:hover {
+    border-color: var(--orange);
+    transform: translateY(-2px);
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.9rem;     /* scaled */
+    color: var(--steel-soft);
+  }
+
+  .accent {
+    color: var(--orange);
   }
 }
 
 /* ====================
-   PROSE (WRITING)
+   PROSE (BLOG / CASES)
 ==================== */
 .prose {
-  max-width: 65ch;
+  max-width: 68ch;
 }
 
 .prose p {
-  font-size: 1rem;
-  line-height: 1.65;
-  color: theme(colors.white);
-  margin: 1.25rem 0;
-}
-
-.prose h2 {
-  @apply text-2xl mt-16 mb-4;
-  color: theme(colors.ink);
+  color: var(--steel);
 }
 
 .prose blockquote {
-  border-left: 2px solid theme(colors.orange);
-  padding-left: 1rem;
+  border-left: 4px solid var(--orange); /* scaled */
+  padding-left: 1.4rem;
+  margin: 3rem 0;
   font-style: italic;
-  color: theme(colors.black);
-  margin: 2rem 0;
+  color: var(--ink);
 }

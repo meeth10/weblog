@@ -15,25 +15,21 @@ export default function ThinkingButton({
         setActive(v => !v)
         onToggle()
       }}
-      className="group text-left cursor-pointer"
+      className="group flex items-center gap-3 text-left cursor-pointer"
       aria-label="Toggle thinking space"
     >
-      <div className="flex items-center gap-2">
-        <span className="text-sm font-semibold text-ink group-hover:text-orange transition">
-          Shourya Singh
-        </span>
+      <span className="text-lg">☕</span>
 
-        {/* subtle activity dot */}
-        <span
-          className={`h-1.5 w-1.5 rounded-full transition-opacity ${
-            active ? "bg-orange opacity-100" : "bg-line opacity-40"
-          }`}
-        />
-      </div>
+      <span className="text-sm font-medium text-ink group-hover:text-orange transition">
+        Double shot espresso
+      </span>
 
-      <div className="mt-1 max-w-md text-sm text-steel group-hover:text-ink transition">
-        Engineer by training. Strategy, finance, and systems thinking.
-      </div>
+      {/* subtle activity dot */}
+      <span
+        className={`h-1.5 w-1.5 rounded-full transition-opacity ${
+          active ? "bg-orange opacity-100" : "bg-line opacity-40"
+        }`}
+      />
     </button>
   )
 }

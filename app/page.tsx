@@ -9,95 +9,65 @@ export default function Page() {
   const [thinking, setThinking] = useState(false)
 
   return (
-    <main
-      className={`relative z-10 min-h-screen space-y-24 transition-colors
-        ${thinking ? "bg-bg" : "bg-bg"}
-      `}
-    >
-      {/* GLOBAL VECTOR SPACE */}
+    <main className="relative min-h-screen px-6 md:px-10 py-20 space-y-28">
       <ThinkingLayer active={thinking} />
 
-      {/* HERO / INTRO */}
-      <header
-        className={`relative rounded-2xl border border-line p-8 md:p-14
-          transition-all
-          ${thinking ? "bg-sand/80 backdrop-blur-sm" : "bg-sand/90"}
-        `}
-      >
-        <div className="space-y-6 max-w-3xl">
-          <h1 className="text-4xl leading-tight font-heading text-ink">
-            Portfolio<span className="text-orange">.</span>
+      {/* HERO */}
+      <header className="panel panel-glass p-10 md:p-16 max-w-4xl">
+        <div className="space-y-8">
+          <span className="eyebrow">Portfolio</span>
+
+          <h1>
+            Engineering rigor applied to
+            <br />
+            <span className="accent">finance, strategy,</span> and{" "}
+            <span className="accent">technology</span>.
           </h1>
 
-          <p className="text-base text-steel">
-            I apply engineering rigor to
-            <span className="text-orange font-medium"> finance</span>,{" "}
-            <span className="text-orange font-medium">strategy</span>, and{" "}
-            <span className="text-orange font-medium">technology</span>
-            — building tools, writing analysis, and thinking in public.
+          <p className="max-w-2xl">
+            I build analytical tools, write structured thinking, and explore
+            complex systems in public — from markets to technology to strategy.
           </p>
 
-          {/* NAME + PROFESSIONAL SUMMARY (THINKING TOGGLE) */}
-          <div className="pt-2">
-            <ThinkingButton onToggle={() => setThinking(v => !v)} />
-          </div>
+          <ThinkingButton onToggle={() => setThinking(v => !v)} />
 
-          {/* PRIMARY NAV ACTIONS */}
-          <div className="flex flex-wrap gap-6 pt-6">
-            <Link
-              href="/writing"
-              className="text-sm font-medium text-ink hover:text-orange transition"
-            >
-              Read writing →
-            </Link>
-
-            <Link
-              href="/tech-projects"
-              className="text-sm font-medium text-ink hover:text-orange transition"
-            >
-              View projects →
-            </Link>
+          <div className="flex gap-8 pt-4 text-sm">
+            <Link href="/writing">Read writing →</Link>
+            <Link href="/tech-projects">View projects →</Link>
           </div>
         </div>
       </header>
+
+      {/* SELECTED WORK */}
+      <section className="max-w-5xl">
+        <h2>Selected Work</h2>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            {
+              title: "Industry X-Ray: Semiconductors",
+              desc: "Systems-first breakdown of the semiconductor value chain.",
+              link: "/cases/semiconductors",
+            },
+            {
+              title: "LBO Stress Testing Engine",
+              desc: "Scenario-based leveraged buyout modeling tool.",
+              link: "/tech-projects/lbo-engine",
+            },
+            {
+              title: "India EV Battery Strategy",
+              desc: "National-scale strategy for battery supply chains.",
+              link: "/cases/india-ev-battery",
+            },
+          ].map(item => (
+            <Link key={item.title} href={item.link} className="paper p-6">
+              <h3>{item.title}</h3>
+              <p className="text-sm">{item.desc}</p>
+              <span className="text-sm accent">Read →</span>
+            </Link>
+          ))}
+        </div>
+      </section>
     </main>
   )
 }
-{/* PINNED PROJECTS */}
-<section className="grid gap-6 md:grid-cols-3">
-  {[
-    {
-      title: "Industry X-Ray: Semiconductors",
-      desc: "Systems-first breakdown of the semiconductor value chain.",
-      link: "/cases/semiconductors",
-    },
-    {
-      title: "LBO Stress Testing Engine",
-      desc: "Scenario-based leveraged buyout modeling tool.",
-      link: "/tech-projects/lbo-engine",
-    },
-    {
-      title: "India EV Battery Strategy",
-      desc: "National-scale strategy for battery supply chains.",
-      link: "/cases/india-ev-battery",
-    },
-  ].map(item => (
-    <Link
-      key={item.title}
-      href={item.link}
-      className="paper p-5 transition hover:border-orange"
-    >
-      <h3 className="font-heading text-base text-ink">
-        {item.title}
-      </h3>
-
-      <p className="mt-2 text-sm text-steel">
-        {item.desc}
-      </p>
-
-      <span className="mt-4 inline-block text-sm text-steelSoft hover:text-orange">
-        Read →
-      </span>
-    </Link>
-  ))}
-</section>
