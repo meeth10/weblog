@@ -3,55 +3,48 @@
 @tailwind utilities;
 
 /* ====================
-   COLOR TOKENS
-==================== */
-:root {
-  --orange: #f97316;
-  --orange-soft: #fde7d7;
-
-  --beige: #faf7f2;
-  --sand: #f1ede7;
-
-  --grey-900: #0f172a;
-  --grey-700: #334155;
-  --grey-600: #475569;
-  --grey-400: #94a3b8;
-}
-
-/* ====================
-   BASE STYLES
+   BASE
 ==================== */
 @layer base {
   body {
-    background: linear-gradient(
-      180deg,
-      #ffffff 0%,
-      var(--beige) 100%
-    );
-    color: var(--grey-900);
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
+    font-family: theme(fontFamily.body);
     line-height: 1.65;
+    background-color: theme(colors.bg);
+    color: theme(colors.ink);
+  }
+
+  h1, h2, h3 {
+    font-family: theme(fontFamily.heading);
+    letter-spacing: -0.02em;
+    color: theme(colors.ink);
   }
 
   h1 {
-    @apply text-5xl font-bold tracking-tight;
+    @apply text-4xl font-semibold mb-6;
   }
 
   h2 {
-    @apply text-3xl font-semibold tracking-tight;
+    @apply text-2xl font-medium mt-14 mb-4;
   }
 
   h3 {
-    @apply text-xl font-semibold;
+    @apply text-lg font-medium mt-10 mb-2;
   }
 
   p {
-    color: var(--grey-600);
-    @apply leading-relaxed;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: theme(colors.steel);
+    margin: 1.25rem 0;
   }
 
   a {
-    @apply transition-colors;
+    transition: color 0.2s ease;
+    color: theme(colors.ink);
+  }
+
+  a:hover {
+    color: theme(colors.orange);
   }
 }
 
@@ -59,84 +52,61 @@
    COMPONENTS
 ==================== */
 @layer components {
-  /* Background helpers */
-  .bg-sand {
-    background-color: var(--sand);
-  }
-
-  /* Accent helpers */
-  .text-accent {
-    color: var(--orange);
-  }
-
-  /* Buttons */
-  .btn {
-    @apply inline-flex items-center rounded-md px-4 py-2 text-sm font-medium border transition;
-  }
-
-  .btn-primary {
-    @apply bg-gray-900 text-white border-gray-900 hover:bg-gray-800;
-  }
-
-  .btn-secondary {
-    @apply border-gray-300 text-gray-700 hover:bg-gray-100;
-  }
-
-  /* Cards */
   .card {
-    @apply rounded-xl border border-gray-200 p-6 bg-white;
-    transition:
-      transform 0.25s ease,
-      box-shadow 0.25s ease,
-      border-color 0.25s ease;
+    background-color: theme(colors.sand);
+    border: 1px solid theme(colors.line);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
   }
 
   .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
-    border-color: var(--orange-soft);
+    border-color: theme(colors.orangeSoft);
   }
 
-  .card h3 {
-    @apply transition-colors;
+  .divider {
+    border-top: 1px solid theme(colors.line);
+    margin: 3rem 0;
   }
 
-  .card:hover h3 {
-    color: var(--orange);
+  .accent {
+    color: theme(colors.orange);
+  }
+
+  .paper {
+    background-color: color-mix(
+      in srgb,
+      theme(colors.sand) 80%,
+      transparent
+    );
+    backdrop-filter: blur(6px);
+    border: 1px solid theme(colors.line);
+    border-radius: 1rem;
   }
 }
 
 /* ====================
-   PROSE (BLOG POSTS)
+   PROSE (WRITING)
 ==================== */
 .prose {
-  max-width: 70ch;
-}
-
-.prose h1 {
-  @apply text-4xl font-bold mt-16 mb-6;
-}
-
-.prose h2 {
-  @apply text-2xl font-semibold mt-12 mb-4;
-}
-
-.prose h3 {
-  @apply text-xl font-semibold mt-8 mb-3;
+  max-width: 65ch;
 }
 
 .prose p {
-  @apply text-lg leading-relaxed text-gray-700 my-6;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: theme(colors.white);
+  margin: 1.25rem 0;
 }
 
-.prose ul {
-  @apply list-disc pl-6 my-6 text-gray-700;
-}
-
-.prose li {
-  @apply my-2;
+.prose h2 {
+  @apply text-2xl mt-16 mb-4;
+  color: theme(colors.ink);
 }
 
 .prose blockquote {
-  @apply border-l-4 border-orange-500 pl-4 italic text-gray-600 my-8;
+  border-left: 2px solid theme(colors.orange);
+  padding-left: 1rem;
+  font-style: italic;
+  color: theme(colors.black);
+  margin: 2rem 0;
 }

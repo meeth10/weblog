@@ -1,88 +1,103 @@
-import Link from "next/link";
+"use client"
+
+import Link from "next/link"
+import { useState } from "react"
+import ThinkingButton from "./components/ThinkingButton"
+import ThinkingLayer from "./components/ThinkingLayer"
 
 export default function Page() {
-  return (
-    <main className="space-y-24">
-      {/* HERO */}
-      <header className="relative space-y-8 rounded-2xl bg-sand px-10 py-16 overflow-hidden">
-        <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-orange-200 opacity-40 blur-3xl" />
+  const [thinking, setThinking] = useState(false)
 
-        <div className="relative space-y-6">
-          <h1 className="text-6xl max-w-3xl leading-tight">
-            Portfolio<span className="text-accent">.</span>
+  return (
+    <main
+      className={`relative z-10 min-h-screen space-y-24 transition-colors
+        ${thinking ? "bg-bg" : "bg-bg"}
+      `}
+    >
+      {/* GLOBAL VECTOR SPACE */}
+      <ThinkingLayer active={thinking} />
+
+      {/* HERO / INTRO */}
+      <header
+        className={`relative rounded-2xl border border-line p-8 md:p-14
+          transition-all
+          ${thinking ? "bg-sand/80 backdrop-blur-sm" : "bg-sand/90"}
+        `}
+      >
+        <div className="space-y-6 max-w-3xl">
+          <h1 className="text-4xl leading-tight font-heading text-ink">
+            Portfolio<span className="text-orange">.</span>
           </h1>
 
-          <p className="max-w-xl text-lg text-gray-600">
+          <p className="text-base text-steel">
             I apply engineering rigor to
-            <span className="text-accent font-medium"> finance</span>,
-            <span className="text-accent font-medium"> strategy</span>,
-            and
-            <span className="text-accent font-medium"> technology</span>
+            <span className="text-orange font-medium"> finance</span>,{" "}
+            <span className="text-orange font-medium">strategy</span>, and{" "}
+            <span className="text-orange font-medium">technology</span>
             — building tools, writing analysis, and thinking in public.
           </p>
 
-          <div className="flex flex-wrap gap-4 pt-6">
-            <Link href="/writing" className="btn btn-primary">
-              Read Writing →
-            </Link>
+          {/* NAME + PROFESSIONAL SUMMARY (THINKING TOGGLE) */}
+          <div className="pt-2">
+            <ThinkingButton onToggle={() => setThinking(v => !v)} />
+          </div>
 
-            <Link href="/tech-projects" className="btn btn-secondary">
-              View Projects
+          {/* PRIMARY NAV ACTIONS */}
+          <div className="flex flex-wrap gap-6 pt-6">
+            <Link
+              href="/writing"
+              className="text-sm font-medium text-ink hover:text-orange transition"
+            >
+              Read writing →
             </Link>
 
             <Link
-              href="/currently-brewing"
-              className="text-sm text-gray-500 hover:text-accent transition"
+              href="/tech-projects"
+              className="text-sm font-medium text-ink hover:text-orange transition"
             >
-              What I’m exploring now →
+              View projects →
             </Link>
           </div>
         </div>
       </header>
-
-      {/* SELECTED WORK */}
-      <section>
-        <h2 className="mb-8">Selected Work</h2>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          {[
-            {
-              title: "Industry X-Ray: Semiconductors",
-              desc: "Structural analysis of the semiconductor value chain.",
-              link: "/business-analysis/semiconductors",
-            },
-            {
-              title: "LBO Stress Testing Engine",
-              desc: "Scenario-driven leveraged buyout modeling engine.",
-              link: "/tech-projects/lbo-engine",
-            },
-            {
-              title: "Comparable Company Analysis",
-              desc: "Framework-driven valuation benchmarking.",
-              link: "/business-analysis/comps",
-            },
-            {
-              title: "India EV Battery Strategy",
-              desc: "National-scale strategy for battery supply chains.",
-              link: "/business-analysis/india-ev-battery",
-            },
-          ].map((item) => (
-            <Link
-              key={item.title}
-              href={item.link}
-              className="card bg-sand group"
-            >
-              <h3 className="group-hover:text-accent transition">
-                {item.title}
-              </h3>
-              <p className="mt-2">{item.desc}</p>
-              <span className="mt-4 inline-block text-sm text-gray-500 group-hover:text-accent">
-                Read →
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
     </main>
-  );
+  )
 }
+{/* PINNED PROJECTS */}
+<section className="grid gap-6 md:grid-cols-3">
+  {[
+    {
+      title: "Industry X-Ray: Semiconductors",
+      desc: "Systems-first breakdown of the semiconductor value chain.",
+      link: "/cases/semiconductors",
+    },
+    {
+      title: "LBO Stress Testing Engine",
+      desc: "Scenario-based leveraged buyout modeling tool.",
+      link: "/tech-projects/lbo-engine",
+    },
+    {
+      title: "India EV Battery Strategy",
+      desc: "National-scale strategy for battery supply chains.",
+      link: "/cases/india-ev-battery",
+    },
+  ].map(item => (
+    <Link
+      key={item.title}
+      href={item.link}
+      className="paper p-5 transition hover:border-orange"
+    >
+      <h3 className="font-heading text-base text-ink">
+        {item.title}
+      </h3>
+
+      <p className="mt-2 text-sm text-steel">
+        {item.desc}
+      </p>
+
+      <span className="mt-4 inline-block text-sm text-steelSoft hover:text-orange">
+        Read →
+      </span>
+    </Link>
+  ))}
+</section>
