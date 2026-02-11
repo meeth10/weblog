@@ -55,9 +55,9 @@ export default function Page() {
               link: "/tech-projects/lbo-engine",
             },
             {
-              title: "India EV Battery Strategy",
-              desc: "National-scale strategy for battery supply chains.",
-              link: "/cases/india-ev-battery",
+              title: "ASML Chokehold AI",
+              desc: "A case study of ASML's dominance in the semiconductor industry and its implications for global supply chains.",
+              link: "/cases/asml-chokehold",
             },
           ].map(item => (
             <Link key={item.title} href={item.link} className="paper p-6">
