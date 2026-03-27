@@ -1,25 +1,23 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./app/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
-        bg: "#F3EFE9",        // warm paper
-        sand: "#ECE7DF",      // surface
-        ink: "#1F2933",       // headings
-        steel: "#4B5563",     // body text
-        steelSoft: "#6B7280",
-        line: "#D6D0C6",
-        orange: "#D97706",
-        orangeSoft: "#F1C27D",
+        bg:        "#0d0d0d",
+        paper:     "#131313",
+        ink:       "#edeae4",
+        steel:     "#7a7672",
+        steelSoft: "#4a4846",
+        line:      "#1c1c1c",
+        orange:    "#e85d26",
       },
       fontFamily: {
-        heading: ["Space Grotesk", "sans-serif"],
-        body: ["Inter", "sans-serif"],
+        sans:    ["DM Sans", "sans-serif"],
+        display: ["Instrument Serif", "serif"],
+        mono:    ["DM Mono", "monospace"],
       },
+      maxWidth: { reading: "68ch" },
     },
   },
   plugins: [],

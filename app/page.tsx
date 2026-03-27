@@ -1,73 +1,54 @@
-"use client"
-
 import Link from "next/link"
-import { useState } from "react"
-import ThinkingButton from "./components/ThinkingButton"
-import ThinkingLayer from "./components/ThinkingLayer"
+import { getAllPosts } from "./blog/utils"
 
-export default function Page() {
-  const [thinking, setThinking] = useState(false)
-
+export default function Home() {
+  const recent = getAllPosts()
+    .filter(p => p.tags?.includes("insight") || p.tags?.includes("analysis"))
+    .slice(0, 4)
   return (
-    <main className="relative min-h-screen px-6 md:px-10 py-20 space-y-28">
-      <ThinkingLayer active={thinking} />
-
-      {/* HERO */}
-      <header className="panel panel-glass p-10 md:p-16 max-w-4xl">
-        <div className="space-y-8">
-          <span className="eyebrow">Portfolio</span>
-
-          <h1>
-            Engineering rigor applied to
-            <br />
-            <span className="accent">finance, strategy,</span> and{" "}
-            <span className="accent">technology</span>.
-          </h1>
-
-          <p className="max-w-2xl">
-            I build analytical tools, write structured thinking, and explore
-            complex systems in public — from markets to technology to strategy.
-          </p>
-
-          <ThinkingButton onToggle={() => setThinking(v => !v)} />
-
-          <div className="flex gap-8 pt-4 text-sm">
-            <Link href="/writing">Read writing →</Link>
-            <Link href="/tech-projects">View projects →</Link>
-          </div>
+    <div className="space-y-16 py-4">
+      <section className="space-y-5 pt-2">
+        <span className="eyebrow">Portfolio</span>
+        <h1 className="display">Strategy, finance,<br /><span className="italic text-orange">and systems thinking.</span></h1>
+        <p className="text-steel max-w-prose leading-relaxed">Structured analysis on markets, technology, and business strategy. Interested in how systems break — and what that reveals.</p>
+        <div className="flex gap-6 pt-1 text-sm">
+          <Link href="/insights" className="text-orange hover:underline underline-offset-4">Read insights →</Link>
+          <Link href="/business-analysis" className="text-steel hover:text-ink transition-colors">See analysis →</Link>
         </div>
-      </header>
-
-      {/* SELECTED WORK */}
-      <section className="max-w-5xl">
-        <h2>Selected Work</h2>
-
-        <div className="grid gap-6 md:grid-cols-3">
-          {[
-            {
-              title: "Industry X-Ray: Semiconductors",
-              desc: "Systems-first breakdown of the semiconductor value chain.",
-              link: "/cases/semiconductors",
-            },
-            {
-              title: "LBO Stress Testing Engine",
-              desc: "Scenario-based leveraged buyout modeling tool.",
-              link: "/tech-projects/lbo-engine",
-            },
-            {
-              title: "ASML Chokehold AI",
-              desc: "A case study of ASML's dominance in the semiconductor industry and its implications for global supply chains.",
-              link: "/cases/asml-chokehold",
-            },
-          ].map(item => (
-            <Link key={item.title} href={item.link} className="paper p-6">
-              <h3>{item.title}</h3>
-              <p className="text-sm">{item.desc}</p>
-              <span className="text-sm accent">Read →</span>
+      </section>
+      <div className="h-px bg-line" />
+      <section className="space-y-4">
+        <div className="flex items-baseline justify-between">
+          <span className="eyebrow">Recent</span>
+          <Link href="/insights" className="text-xs text-steelSoft hover:text-orange transition-colors">All →</Link>
+        </div>
+        <div className="space-y-2">
+          {recent.map(post => (
+            <Link key={post.slug} href={`/blog/${post.slug}`} className="card flex items-start justify-between gap-4 p-4 group block">
+              <div className="min-w-0 flex-1 space-y-0.5">
+                <p className="text-[0.92rem] font-medium text-ink group-hover:text-orange transition-colors leading-snug">{post.title}</p>
+                {post.description && <p className="text-xs text-steel leading-snug line-clamp-1">{post.description}</p>}
+              </div>
+              <span className="text-xs text-steelSoft whitespace-nowrap pt-0.5 flex-shrink-0">
+                {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString("en-US",{month:"short",year:"numeric"}) : ""}
+              </span>
             </Link>
           ))}
         </div>
       </section>
-    </main>
+      <section className="grid grid-cols-2 gap-3">
+        {[
+          { href: "/writing",           label: "Writing",       desc: "Essays & PDFs I've written" },
+          { href: "/reading",           label: "Reading Notes", desc: "Summaries of what I've read" },
+          { href: "/business-analysis", label: "Analysis",      desc: "Deep-dives on companies & industries" },
+          { href: "/currently-brewing", label: "Now",           desc: "What I'm thinking about" },
+        ].map(({ href, label, desc }) => (
+          <Link key={href} href={href} className="card p-4 space-y-0.5 group">
+            <p className="text-sm font-semibold text-ink group-hover:text-orange transition-colors">{label} →</p>
+            <p className="text-xs text-steel">{desc}</p>
+          </Link>
+        ))}
+      </section>
+    </div>
   )
 }

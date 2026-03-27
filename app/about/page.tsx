@@ -1,31 +1,18 @@
-export default function AboutPage() {
+export const metadata = { title: "About — Shourya" }
+export default function About() {
   return (
-    <section className="max-w-3xl mx-auto px-6 py-24 space-y-10">
-      <header className="space-y-4">
-        <h1 className="text-4xl font-bold">About</h1>
-        <p className="text-gray-600 text-lg">
-          Engineer by training. Strategy, finance, and systems by practice.
-        </p>
+    <div className="space-y-10 py-4">
+      <header className="space-y-2">
+        <span className="eyebrow">About</span>
+        <h1 className="text-[1.6rem] font-semibold tracking-tight text-ink">Shourya Singh Thakur</h1>
       </header>
-
-      <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-        <p>
-          I work at the intersection of technology, business, and capital.
-          My background is in engineering, but my focus is on understanding
-          how systems scale — markets, companies, and ideas.
-        </p>
-
-        <p>
-          This site is a living record of my thinking and execution:
-          business analysis, technical projects, and ideas I’m actively
-          exploring.
-        </p>
-
-        <p>
-          Long-term, I’m interested in venture investing, energy transition,
-          and building tools that improve decision-making under uncertainty.
-        </p>
+      <div className="space-y-5 max-w-prose text-steel text-[0.92rem] leading-relaxed">
+        <p>I think about markets, technology, and how systems — economic, organizational, technological — actually work versus how they're supposed to work.</p>
+        <p>This site is where I publish structured thinking: analysis of companies and industries, shorter ideas and mental models, and summaries of things I've read. It's partly for me, partly for anyone who finds it useful.</p>
+        <p>I'm interested in capital allocation, competitive dynamics, and the intersection of technology and geopolitics. I build analytical tools when I can't find one that does what I need.</p>
+        <div className="h-px bg-line my-6" />
+        <p className="text-xs text-steelSoft">Get in touch: <a href="mailto:shouryast.1004@gmail.com" className="text-orange hover:underline underline-offset-4">shouryast.1004@gmail.com</a></p>
       </div>
-    </section>
+    </div>
   )
 }

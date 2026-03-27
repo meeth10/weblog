@@ -1,42 +1,36 @@
+"use client"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
+
+const links = [
+  { href: "/",                  label: "Home"     },
+  { href: "/about",             label: "About"    },
+  { href: "/insights",          label: "Insights" },
+  { href: "/business-analysis", label: "Analysis" },
+  { href: "/writing",           label: "Writing"  },
+  { href: "/reading",           label: "Reading"  },
+  { href: "/currently-brewing", label: "Now"      },
+]
 
 export default function Nav() {
+  const path = usePathname()
   return (
-    <header className="border-b border-line">
-      <div className="mx-auto max-w-6xl px-14 py-8 flex items-center justify-between">
-        {/* Logo / Name */}
-        <Link
-          href="/"
-          className="text-xl font-semibold tracking-tight leading-none text-ink"
-        >
+    <header className="border-b border-line sticky top-0 z-50 bg-bg/[0.97] backdrop-blur-sm">
+      <div className="mx-auto max-w-5xl px-6 py-4 flex items-center justify-between">
+        <Link href="/" className="text-[0.9rem] font-semibold tracking-tight text-ink leading-none">
           Shourya Singh Thakur<span className="text-orange">.</span>
         </Link>
-
-        {/* Navigation */}
-        <nav className="flex gap-10 text-[1.05rem] font-medium text-steel">
-          {[
-            { name: "Home", href: "/" },
-            { name: "About", href: "/about" },
-            { name: "Insights", href: "/insights" },
-            { name: "Analysis", href: "/business-analysis" },
-            { name: "Projects", href: "/tech-projects" },
-            { name: "Now", href: "/currently-brewing" },
-          ].map(item => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="
-                relative transition
-                hover:text-ink
-                after:absolute after:-bottom-1 after:left-0
-                after:h-[2px] after:w-0 after:bg-orange
-                after:transition-all
-                hover:after:w-full
-              "
-            >
-              {item.name}
-            </Link>
-          ))}
+        <nav className="hidden sm:flex gap-6">
+          {links.map(({ href, label }) => {
+            const active = href === "/" ? path === "/" : path.startsWith(href)
+            return <Link key={href} href={href} className={`nav-link ${active ? "active" : ""}`}>{label}</Link>
+          })}
+        </nav>
+        <nav className="flex sm:hidden gap-5 overflow-x-auto max-w-[70vw]">
+          {links.map(({ href, label }) => {
+            const active = href === "/" ? path === "/" : path.startsWith(href)
+            return <Link key={href} href={href} className={`nav-link whitespace-nowrap ${active ? "active" : ""}`}>{label}</Link>
+          })}
         </nav>
       </div>
     </header>
