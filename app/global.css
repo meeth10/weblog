@@ -40,3 +40,6 @@
   .prose-post li { margin-bottom: 0.35em; color: #b8b4ae; }
   .prose-post strong { color: var(--ink); font-weight: 600; }
 }
+  .input { width: 100%; background: var(--paper); border: 1px solid var(--line); padding: 0.55rem 0.85rem; font-size: 0.875rem; color: var(--ink); outline: none; transition: border-color 0.15s; font-family: "DM Sans", sans-serif; }
+  .input::placeholder { color: var(--steel-soft); }
+  .input:focus { border-color: var(--orange); }
